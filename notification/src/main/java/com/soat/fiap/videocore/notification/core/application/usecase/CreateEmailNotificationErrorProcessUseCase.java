@@ -13,6 +13,10 @@ import com.soat.fiap.videocore.notification.core.interfaceadapters.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Caso de uso responsável por criar uma notificação por e-mail
  * quando ocorre um erro no processamento de um vídeo.
@@ -42,7 +46,11 @@ public class CreateEmailNotificationErrorProcessUseCase {
         var percentStatusProcess = input.percentStatusProcess();
         var videoName = input.videoName();
         var requestId = input.requestId();
+
         var reportTime = input.reportTime();
+        var reportDateTime = ZonedDateTime.ofInstant(reportTime, ZoneId.systemDefault());
+        var formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        var formattedReportTime = reportDateTime.format(formatter);
 
         var subject = new Subject("🙁 O processamento do seu vídeo não pode ser completado");
 
@@ -53,8 +61,8 @@ public class CreateEmailNotificationErrorProcessUseCase {
                         "<p>📊 <strong>Percentual processado:</strong> " + percentStatusProcess + "%</p>" +
                         "<p>⏱️ <strong>Intervalo de captura de imagens:</strong> " + frameCutMinutes + " minuto(s)</p>" +
                         "<p>📌 <strong>Requisição:</strong> " + requestId +
-                        " <span style=\"font-size:12px;\">(use este identificador para consultar o administrador e resolver o problema)</span></p>" +
-                        "<p>⏰ <strong>Ocorrência do erro:</strong> " + reportTime + "</p>" +
+                        " <span style=\"font-size:12px;\">(use este identificador para consultar o suporte e resolver o problema)</span></p>" +
+                        "<p>⏰ <strong>Ocorrência do erro:</strong> " + formattedReportTime + "</p>" +
                         "<p>🔄 Você pode tentar fazer o upload do vídeo novamente a qualquer momento.</p>" +
                         "</div>";
 

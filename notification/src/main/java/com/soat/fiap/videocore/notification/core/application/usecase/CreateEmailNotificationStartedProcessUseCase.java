@@ -12,6 +12,10 @@ import com.soat.fiap.videocore.notification.core.interfaceadapters.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Caso de uso responsável por criar uma notificação por e-mail
  * informando o início do processamento de um vídeo.
@@ -40,7 +44,11 @@ public class CreateEmailNotificationStartedProcessUseCase {
         var videoName = input.videoName();
         var frameCutMinutes = input.frameCutMinutes();
         var requestId = input.requestId();
+
         var reportTime = input.reportTime();
+        var reportDateTime = ZonedDateTime.ofInstant(reportTime, ZoneId.systemDefault());
+        var formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        var formattedReportTime = reportDateTime.format(formatter);
 
         var subject = new Subject("🧐 O processamento do seu vídeo começou");
 
@@ -50,8 +58,8 @@ public class CreateEmailNotificationStartedProcessUseCase {
                         "<p>🚀 O processamento do vídeo <strong>" + videoName + "</strong> foi iniciado com sucesso.</p>" +
                         "<p>Estamos trabalhando a cada: <strong>" + frameCutMinutes + " minuto(s)</strong> para capturar as imagens 💙</p>" +
                         "<p>📌 <strong>Requisição:</strong> " + requestId +
-                        " <span style=\"font-size:12px;\">(use este identificador para acompanhar o status, consultar relatórios ou falar com o suporte)</span></p>" +
-                        "<p>⏰ <strong>Início do processamento:</strong> " + reportTime + "</p>" +
+                        " <span style=\"font-size:12px;\">(use este identificador para falar com o suporte em caso de dúvidas)</span></p>" +
+                        "<p>⏰ <strong>Início do processamento:</strong> " + formattedReportTime + "</p>" +
                         "</div>";
 
         var message = new Message(messageText);

@@ -12,6 +12,10 @@ import com.soat.fiap.videocore.notification.core.interfaceadapters.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Caso de uso responsável por criar uma notificação por e-mail
  * informando a finalização do processamento de um vídeo.
@@ -40,7 +44,11 @@ public class CreateEmailNotificationFinishedProcessUseCase {
         var videoName = input.videoName();
         var frameCutMinutes = input.frameCutMinutes();
         var requestId = input.requestId();
+
         var reportTime = input.reportTime();
+        var reportDateTime = ZonedDateTime.ofInstant(reportTime, ZoneId.systemDefault());
+        var formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        var formattedReportTime = reportDateTime.format(formatter);
 
         var subject = new Subject("😎 Seu vídeo terminou de ser processado");
 
@@ -50,9 +58,10 @@ public class CreateEmailNotificationFinishedProcessUseCase {
                         "<p>✅ O processamento do vídeo <strong>" + videoName + "</strong> foi finalizado com sucesso.</p>" +
                         "<p>As imagens foram capturadas a cada: <strong>" + frameCutMinutes + " minuto(s)</strong> 💙</p>" +
                         "<p>📌 <strong>Requisição:</strong> " + requestId +
-                        " <span style=\"font-size:12px;\">(use este identificador para consultar relatórios ou falar com o suporte)</span></p>" +
-                        "<p>⏰ <strong>Fim do processamento:</strong> " + reportTime + "</p>" +
-                        "<p>📥 <strong>Download das imagens:</strong> <a href=\"" + downloadUrl + "\">Clique aqui para baixar</a></p>" +
+                        " <span style=\"font-size:12px;\">(use este identificador para falar com o suporte em caso de dúvidas)</span></p>" +
+                        "<p>⏰ <strong>Fim do processamento:</strong> " + formattedReportTime + "</p>" +
+                        "<p>📥 <strong>Download das imagens:</strong> <a href=\"" + downloadUrl + "\">Clique aqui para baixar</a> " +
+                        "<span style=\"font-size:12px; color:#555;\">(link disponível por 30 minutos)</span></p>" +
                         "</div>";
 
         var message = new Message(messageText);
