@@ -1,6 +1,8 @@
 package com.soat.fiap.videocore.notification.core.interfaceadapters.mapper;
 
+import com.soat.fiap.videocore.notification.core.application.input.ProcessVideoErrorInput;
 import com.soat.fiap.videocore.notification.core.application.input.ProcessVideoStatusUpdateInput;
+import com.soat.fiap.videocore.notification.infrastructure.in.event.azsvcbus.payload.ProcessVideoErrorPayload;
 import com.soat.fiap.videocore.notification.infrastructure.in.event.azsvcbus.payload.ProcessVideoStatusUpdatePayload;
 import org.mapstruct.Mapper;
 
@@ -16,4 +18,12 @@ public interface EventMapper {
      * @return objeto de entrada para processamento do status do vídeo
      */
     ProcessVideoStatusUpdateInput toInput(ProcessVideoStatusUpdatePayload payload);
+
+    /**
+     * Converte o payload de erro do processamento de vídeo em objeto de entrada da aplicação.
+     *
+     * @param payload payload do evento de erro recebido
+     * @return objeto de entrada para tratamento do erro do vídeo
+     */
+    ProcessVideoErrorInput toInput(ProcessVideoErrorPayload payload);
 }

@@ -3,7 +3,8 @@ package com.soat.fiap.videocore.notification.core.application.input;
 import java.time.Instant;
 
 /**
- * Representa um DTO de entrada da aplicação (Application Layer), contendo detalhes sobre a atualização do status de processamento de um vídeo.
+ * Representa um DTO de entrada da aplicação (Application Layer),
+ * contendo detalhes sobre a atualização do status de processamento de um vídeo.
  *
  * @param videoName             Nome do vídeo.
  * @param userId                Identificador do usuário dono do vídeo.
