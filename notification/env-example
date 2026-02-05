@@ -8,3 +8,8 @@ OTEL_HTTP_METRICS_ENDPOINT=http://localhost:4321/v1/metrics
 
 # Azure Service Bus
 AZ_SVC_BUS_CONNECTION_STRING=Endpoint=sb://localhost;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=SAS_KEY_VALUE;UseDevelopmentEmulator=true;
+
+# AWS
+AWS_CREDENTIALS=AWS_ACCESS_KEY_ID=test;AWS_SECRET_ACCESS_KEY=test;AWS_REGION=us-east-1;AWS_SESSION_TOKEN=localstack-session
+AWS_COGNITO_USER_POOL_ID=us-east-1_c744ddc8c53b4209aa3d7b363eba5098
+AWS_COGNITO_ENDPOINT=http://localhost:4566

@@ -16,6 +16,12 @@ spring:
       servicebus:
         connection-string: ${AZ_SVC_BUS_CONNECTION_STRING:}
 
+aws:
+  cognito:
+    aws-credentials: ${AWS_CREDENTIALS:}
+    userPoolId: ${AWS_COGNITO_USER_POOL_ID:}
+    endpoint: ${AWS_COGNITO_ENDPOINT:}
+
 server:
   address: ${SERVER_ADDRESS:}
   port: ${SERVER_PORT:}
