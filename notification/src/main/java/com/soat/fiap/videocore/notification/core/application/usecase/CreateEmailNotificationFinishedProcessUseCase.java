@@ -61,7 +61,7 @@ public class CreateEmailNotificationFinishedProcessUseCase {
                         " <span style=\"font-size:12px;\">(use este identificador para falar com o suporte em caso de dúvidas)</span></p>" +
                         "<p>⏰ <strong>Fim do processamento:</strong> " + formattedReportTime + "</p>" +
                         "<p>📥 <strong>Download das imagens:</strong> <a href=\"" + downloadUrl + "\">Clique aqui para baixar</a> " +
-                        "<span style=\"font-size:12px; color:#555;\">(link disponível por 30 minutos)</span></p>" +
+                        "<span style=\"font-size:12px;\">(link disponível por 30 minutos)</span></p>" +
                         "</div>";
 
         var message = new Message(messageText);
