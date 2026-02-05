@@ -52,6 +52,7 @@ dependencies {
     // Azure
     implementation 'com.azure.spring:spring-cloud-azure-starter'
     implementation 'com.azure.spring:spring-messaging-azure-servicebus'
+    implementation "com.azure:azure-storage-blob:${azureBlobSdkVersion}"
 
     // AWS Cognito SDK
     implementation("software.amazon.awssdk:cognitoidentityprovider")
