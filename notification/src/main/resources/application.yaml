@@ -66,3 +66,10 @@ otel:
       logs:
         endpoint: ${OTEL_GRPC_ENDPOINT:}
         protocol: grpc
+
+# Azure
+azure:
+  blob-storage:
+    connection-string: ${AZURE_BLOB_STORAGE_CONNECTION_STRING:}
+    video-container-name: ${AZURE_BLOB_STORAGE_VIDEO_CONTAINER_NAME:}
+    image-container-name: ${AZURE_BLOB_STORAGE_IMAGE_CONTAINER_NAME:}
