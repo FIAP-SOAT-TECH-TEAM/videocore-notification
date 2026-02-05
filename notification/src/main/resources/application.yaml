@@ -1,0 +1,62 @@
+spring:
+  application:
+    name: notification
+
+  threads:
+    virtual:
+      enabled: true
+
+  profiles:
+    active: local
+
+  cloud:
+    azure:
+      # Mensageria
+      # https://github.com/Azure/azure-sdk-for-java/issues/43106
+      servicebus:
+        connection-string: ${AZ_SVC_BUS_CONNECTION_STRING:}
+
+server:
+  address: ${SERVER_ADDRESS:}
+  port: ${SERVER_PORT:}
+  servlet:
+    context-path: /
+  compression:
+    enabled: true
+  error:
+    include-message: always
+    include-binding-errors: always
+
+# Observabilidade
+management:
+  otlp:
+    metrics:
+      export:
+        enabled: false
+
+  opentelemetry:
+    resource-attributes:
+      service.name: ${spring.application.name}
+      service.version: ${spring.application.version}
+
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics
+
+# Observabilidade
+otel:
+  instrumentation:
+    micrometer:
+      enabled: true
+  exporter:
+    otlp:
+      traces:
+        endpoint: ${OTEL_GRPC_ENDPOINT:}
+        protocol: grpc
+      metrics:
+        endpoint: ${OTEL_GRPC_ENDPOINT:}
+        protocol: grpc
+      logs:
+        endpoint: ${OTEL_GRPC_ENDPOINT:}
+        protocol: grpc

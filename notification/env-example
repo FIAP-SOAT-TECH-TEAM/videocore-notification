@@ -1,0 +1,10 @@
+# SERVER
+SERVER_ADDRESS=0.0.0.0
+SERVER_PORT=8082
+
+# OTEL
+OTEL_GRPC_ENDPOINT=http://localhost:4320
+OTEL_HTTP_METRICS_ENDPOINT=http://localhost:4321/v1/metrics
+
+# Azure Service Bus
+AZ_SVC_BUS_CONNECTION_STRING=Endpoint=sb://localhost;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=SAS_KEY_VALUE;UseDevelopmentEmulator=true;
