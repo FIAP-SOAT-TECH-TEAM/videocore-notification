@@ -35,13 +35,14 @@ public class CreateEmailNotificationStartedProcessUseCase {
             throw new NotificationException("As informações do usuário ou do processamento do vídeo não podem ser nulas para criação da notificação");
 
         var recipientName = new RecipientName(userDTO.name());
-        var subject = new Subject(userDTO.subject());
         var recipient = new Recipient(userDTO.email());
 
         var videoName = input.videoName();
         var frameCutMinutes = input.frameCutMinutes();
         var requestId = input.requestId();
         var reportTime = input.reportTime();
+
+        var subject = new Subject("🧐 O processamento do seu vídeo começou");
 
         var messageText =
                 "<div style=\"color:#1e90ff; font-family:Arial, sans-serif;\">" +

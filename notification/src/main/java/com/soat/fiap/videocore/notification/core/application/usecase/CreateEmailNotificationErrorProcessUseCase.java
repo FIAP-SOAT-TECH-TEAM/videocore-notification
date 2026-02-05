@@ -36,7 +36,6 @@ public class CreateEmailNotificationErrorProcessUseCase {
             throw new NotificationException("As informações do usuário ou do processamento do vídeo não podem ser nulas para criação da notificação");
 
         var recipientName = new RecipientName(userDTO.name());
-        var subject = new Subject(userDTO.subject());
         var recipient = new Recipient(userDTO.email());
 
         var frameCutMinutes = input.frameCutMinutes();
@@ -44,6 +43,8 @@ public class CreateEmailNotificationErrorProcessUseCase {
         var videoName = input.videoName();
         var requestId = input.requestId();
         var reportTime = input.reportTime();
+
+        var subject = new Subject("🙁 O processamento do seu vídeo não pode ser completado");
 
         var messageText =
                 "<div style=\"color:#ff4d4f; font-family:Arial, sans-serif;\">" +
