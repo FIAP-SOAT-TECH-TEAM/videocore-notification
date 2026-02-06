@@ -49,7 +49,9 @@ public class AzureBlobStorageRepository implements VideoDataSource {
 
         var expiryTime = OffsetDateTime.now().plusMinutes(expirationMinuteTime);
 
-        var sasValues = new BlobServiceSasSignatureValues(expiryTime, permissions);
+        var sasValues = new BlobServiceSasSignatureValues(expiryTime, permissions)
+                .setContentDisposition("attachment; filename=\"" + removeExtension(videoName) + ".zip\"")
+                .setContentType("application/zip");
 
         if (environmentProperties.isProd())
             sasValues.setProtocol(SasProtocol.HTTPS_ONLY);
@@ -57,6 +59,24 @@ public class AzureBlobStorageRepository implements VideoDataSource {
         var sasToken = blobClient.generateSas(sasValues);
 
         return blobClient.getBlobUrl() + "?" + sasToken;
+    }
+
+    /**
+     * Remove a extensão do nome de um arquivo, considerando apenas o último ponto.
+     * <p>
+     * Exemplo:
+     * <ul>
+     *   <li>{@code video.mp4} → {@code video}</li>
+     *   <li>{@code meu.video.final.mkv} → {@code meu.video.final}</li>
+     *   <li>{@code video} → {@code video}</li>
+     * </ul>
+     *
+     * @param fileName nome do arquivo, com ou sem extensão
+     * @return nome do arquivo sem a extensão
+     */
+    private String removeExtension(String fileName) {
+        var lastDot = fileName.lastIndexOf('.');
+        return (lastDot > 0) ? fileName.substring(0, lastDot) : fileName;
     }
 
 }
