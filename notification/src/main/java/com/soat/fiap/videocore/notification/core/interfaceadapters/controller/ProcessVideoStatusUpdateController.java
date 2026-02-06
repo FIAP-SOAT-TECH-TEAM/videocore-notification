@@ -34,10 +34,10 @@ public class ProcessVideoStatusUpdateController {
 
         Notification notification = null;
 
-        if (input.percentStatusProcess() == 0) {
+        if (input.percentStatusProcess() == 0 && !input.isError()) {
             notification = createEmailNotificationStartedProcessUseCase.createEmailNotificationStartedProcess(user, input);
         }
-        else if (input.percentStatusProcess() == 100) {
+        else if (input.percentStatusProcess() == 100 && !input.isError()) {
             var downloadUrl = getVideoImagesDownloadUrlUseCase.getVideoImagesDownloadUrl(payload.userId(), payload.requestId(), payload.videoName());
             notification = createEmailNotificationFinishedProcessUseCase.createEmailNotificationFinishedProcess(user, input, downloadUrl);
         }
