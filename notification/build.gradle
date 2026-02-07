@@ -3,10 +3,13 @@ plugins {
 	id 'org.springframework.boot' version '4.0.1'
 	id 'io.spring.dependency-management' version '1.1.7'
 	id 'org.graalvm.buildtools.native' version '0.11.3'
+    id 'co.uzzu.dotenv.gradle' version "4.0.0"
+    id 'jacoco'
+    id 'org.sonarqube' version '7.2.2.6593'
 }
 
 group = 'com.fiap.videocore'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 description = 'Microsserviço de notificações'
 
 java {
@@ -24,6 +27,7 @@ ext {
     set('mapStructVersion', "1.6.3")
     set('logstashEncoderVersion', "9.0")
     set('azureBlobSdkVersion', "12.31.1")
+    set('apacheCommonsValidatorVersion', "1.10.1")
 
     set('openTelBomVersion', "1.58.0")
     set('openTelInstBomVersion', "2.23.0-alpha")
@@ -72,11 +76,91 @@ dependencies {
     compileOnly "org.mapstruct:mapstruct:${mapStructVersion}"
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapStructVersion}"
 
+    // Validators
+    implementation "commons-validator:commons-validator:${apacheCommonsValidatorVersion}"
+
     // Teste
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
+    finalizedBy(jacocoTestReport)
+}
+
+sonar {
+    properties {
+        property 'sonar.projectKey', 'FIAP-SOAT-TECH-TEAM_videocore-notification'
+        property 'sonar.organization', 'fiap-soat-tech-team'
+        property 'sonar.projectName', 'videocore-notification'
+        property 'sonar.token', System.getenv("SONAR_CLOUD_TOKEN") ?: env.SONAR_CLOUD_TOKEN.value
+        property 'sonar.coverage.jacoco.xmlReportPaths', 'build/reports/jacoco/test/jacocoTestReport.xml'
+        property 'sonar.exclusions', [
+                // Application main class
+                '**/NotificationApplication.java',
+                // Configuration classes
+                '**/config/**',
+                '**/*Config.java',
+                '**/*Configuration.java',
+                '**/*Properties.java',
+                // Exceptions
+                "**/*exception*/**",
+                // DTOs and Request/Response classes
+                '**/dto/**',
+                '**/request/**',
+                '**/response/**',
+                '**/payload/**',
+                // MapStruct generated mappers
+                '**/mapper/**/*Impl.java',
+                '**/mapper/**/*MapperImpl*.java',
+                // Infrastructure adapters (controllers, repositories, etc.)
+                '**/infrastructure/in/**',
+                '**/infrastructure/out/**',
+                // Common infrastructure
+                '**/infrastructure/common/**',
+                // Common Observability
+                '**/common/observability/**',
+                // Package info files
+                '**/package-info.java'
+        ].join(',')
+        property 'sonar.test.exclusions', '**/fixtures/**'
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+        html.required = true
+    }
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    // Application main class
+                    '**/NotificationApplication.java',
+                    // Configuration classes
+                    '**/config/**',
+                    '**/*Config.java',
+                    '**/*Configuration.java',
+                    '**/*Properties.java',
+                    // Exceptions
+                    "**/*exception*/**",
+                    // DTOs and Request/Response classes
+                    '**/dto/**',
+                    '**/request/**',
+                    '**/response/**',
+                    '**/payload/**',
+                    // MapStruct generated mappers
+                    '**/mapper/**/*Impl.java',
+                    '**/mapper/**/*MapperImpl*.java',
+                    // Infrastructure adapters (controllers, repositories, etc.)
+                    '**/infrastructure/in/**',
+                    '**/infrastructure/out/**',
+                    // Common infrastructure
+                    '**/infrastructure/common/**',
+                    // Package info files
+                    '**/package-info.java'
+            ])
+        }))
+    }
 }

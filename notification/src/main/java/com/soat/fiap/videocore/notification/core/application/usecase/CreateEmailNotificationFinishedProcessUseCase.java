@@ -3,6 +3,7 @@ package com.soat.fiap.videocore.notification.core.application.usecase;
 import com.soat.fiap.videocore.notification.common.observability.trace.WithSpan;
 import com.soat.fiap.videocore.notification.core.application.input.ProcessVideoStatusUpdateInput;
 import com.soat.fiap.videocore.notification.core.domain.exceptions.NotificationException;
+import com.soat.fiap.videocore.notification.core.domain.exceptions.UserException;
 import com.soat.fiap.videocore.notification.core.domain.model.Notification;
 import com.soat.fiap.videocore.notification.core.domain.vo.Message;
 import com.soat.fiap.videocore.notification.core.domain.vo.Recipient;
@@ -10,6 +11,7 @@ import com.soat.fiap.videocore.notification.core.domain.vo.RecipientName;
 import com.soat.fiap.videocore.notification.core.domain.vo.Subject;
 import com.soat.fiap.videocore.notification.core.interfaceadapters.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.stereotype.Component;
 
 import java.time.ZoneId;
@@ -37,6 +39,10 @@ public class CreateEmailNotificationFinishedProcessUseCase {
 
         if (userDTO == null || input == null)
             throw new NotificationException("As informações do usuário ou do processamento do vídeo não podem ser nulas para criação da notificação");
+
+        var emailValidator = EmailValidator.getInstance();
+        if (!emailValidator.isValid(userDTO.email()))
+            throw new UserException("Endereço de email do usuário é inválido");
 
         var recipientName = new RecipientName(userDTO.name());
         var recipient = new Recipient(userDTO.email());
