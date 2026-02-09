@@ -50,24 +50,52 @@ public class CreateEmailNotificationFinishedProcessUseCase {
         var videoName = input.videoName();
         var frameCutMinutes = input.frameCutMinutes();
         var requestId = input.requestId();
+        var traceId = input.traceId();
 
         var reportTime = input.reportTime();
         var reportDateTime = ZonedDateTime.ofInstant(reportTime, ZoneId.systemDefault());
         var formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         var formattedReportTime = reportDateTime.format(formatter);
 
-        var subject = new Subject("😎 Seu vídeo terminou de ser processado");
+        var subject = new Subject("VideoCore | 😎 Seu vídeo terminou de ser processado");
 
         var messageText =
-                "<div style=\"color:#1e90ff; font-family:Arial, sans-serif;\">" +
-                        "<p>👋 <strong>Olá, " + recipientName.value() + "!</strong></p>" +
-                        "<p>✅ O processamento do vídeo <strong>" + videoName + "</strong> foi finalizado com sucesso.</p>" +
-                        "<p>As imagens foram capturadas a cada: <strong>" + frameCutMinutes + " minuto(s)</strong> 💙</p>" +
-                        "<p>📌 <strong>Requisição:</strong> " + requestId +
-                        " <span style=\"font-size:12px;\">(use este identificador para falar com o suporte em caso de dúvidas)</span></p>" +
-                        "<p>⏰ <strong>Fim do processamento:</strong> " + formattedReportTime + "</p>" +
-                        "<p>📥 <strong>Download das imagens:</strong> <a href=\"" + downloadUrl + "\">Clique aqui para baixar</a> " +
-                        "<span style=\"font-size:12px;\">(link disponível por 30 minutos)</span></p>" +
+                "<div style=\"font-family:Arial, Helvetica, sans-serif; color:#1f2937;\">" +
+                        "<div style=\"max-width:600px; margin:0 auto; border:1px solid #e5e7eb; border-radius:8px; overflow:hidden;\">" +
+                        "<div style=\"background:linear-gradient(90deg,#93c5fd,#3b82f6,#1e3a8a); " +
+                        "background-size:400% 400%; " +
+                        "animation:gradientShift 6s ease infinite; " +
+                        "padding:16px; color:#ffffff;\">" +
+                        "<style>" +
+                        "@keyframes gradientShift {" +
+                        "0% { background-position:0% 50%; }" +
+                        "50% { background-position:100% 50%; }" +
+                        "100% { background-position:0% 50%; }" +
+                        "}" +
+                        "</style>" +
+                        "<h2 style=\"margin:0; font-size:20px;\">🎉 Seu vídeo foi processado com sucesso</h2>" +
+                        "</div>" +
+                        "<div style=\"padding:20px;\">" +
+                        "<p>Olá, <strong>" + recipientName.value() + "</strong>,</p>" +
+                        "<p>O processamento do vídeo <strong>" + videoName + "</strong> foi concluído com sucesso.</p>" +
+                        "<p style=\"margin-top:16px;\"><strong>Resumo do processamento:</strong></p>" +
+                        "<ul style=\"padding-left:20px;\">" +
+                        "<li><strong>⏱️ Intervalo de captura: </strong>" + frameCutMinutes + " minuto(s)</li>" +
+                        "<li><strong>🕒 Finalizado em: </strong>" + formattedReportTime + "</li>" +
+                        "</ul>" +
+                        "<p style=\"margin-top:16px;\">📥 <strong>Acesso às imagens:</strong></p>" +
+                        "<p><a href=\"" + downloadUrl + "\" style=\"color:#1d4ed8; text-decoration:none; font-weight:bold;\">Clique aqui para realizar o download</a></p>" +
+                        "<p style=\"font-size:12px; color:#6b7280;\">Link válido por 30 minutos.</p>" +
+                        "<p style=\"margin-top:16px;\">Em caso de dúvidas, utilize os identificadores abaixo ao falar com o suporte:</p>" +
+                        "<p style=\"font-size:13px; color:#374151;\">" +
+                        "<strong>Trace ID: </strong>" + traceId + "<br/>" +
+                        "<strong>Request ID: </strong>" + requestId +
+                        "</p>" +
+                        "</div>" +
+                        "<div style=\"background-color:#f3f4f6; padding:12px; text-align:center; font-size:12px; color:#6b7280;\">" +
+                        "VideoCore - Plataforma de processamento de vídeos 🩵💙" +
+                        "</div>" +
+                        "</div>" +
                         "</div>";
 
         var message = new Message(messageText);

@@ -50,22 +50,47 @@ public class CreateEmailNotificationStartedProcessUseCase {
         var videoName = input.videoName();
         var frameCutMinutes = input.frameCutMinutes();
         var requestId = input.requestId();
+        var traceId = input.traceId();
 
         var reportTime = input.reportTime();
         var reportDateTime = ZonedDateTime.ofInstant(reportTime, ZoneId.systemDefault());
         var formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         var formattedReportTime = reportDateTime.format(formatter);
 
-        var subject = new Subject("🧐 O processamento do seu vídeo começou");
+        var subject = new Subject("VideoCore | 🧐 O processamento do seu vídeo começou");
 
         var messageText =
-                "<div style=\"color:#1e90ff; font-family:Arial, sans-serif;\">" +
-                        "<p>👋 <strong>Olá, " + recipientName.value() + "!</strong></p>" +
-                        "<p>🚀 O processamento do vídeo <strong>" + videoName + "</strong> foi iniciado com sucesso.</p>" +
-                        "<p>Estamos trabalhando a cada: <strong>" + frameCutMinutes + " minuto(s)</strong> para capturar as imagens 💙</p>" +
-                        "<p>📌 <strong>Requisição:</strong> " + requestId +
-                        " <span style=\"font-size:12px;\">(use este identificador para falar com o suporte em caso de dúvidas)</span></p>" +
-                        "<p>⏰ <strong>Início do processamento:</strong> " + formattedReportTime + "</p>" +
+                "<div style=\"font-family:Arial, Helvetica, sans-serif; color:#1f2937;\">" +
+                        "<div style=\"max-width:600px; margin:0 auto; border:1px solid #e5e7eb; border-radius:8px; overflow:hidden;\">" +
+                        "<div style=\"background:linear-gradient(90deg,#93c5fd,#3b82f6,#1e3a8a); " +
+                        "background-size:400% 400%; " +
+                        "animation:gradientShift 6s ease infinite; " +
+                        "padding:16px; color:#ffffff;\">" +
+                        "<style>" +
+                        "@keyframes gradientShift {" +
+                        "0% { background-position:0% 50%; }" +
+                        "50% { background-position:100% 50%; }" +
+                        "100% { background-position:0% 50%; }" +
+                        "}" +
+                        "</style>" +
+                        "<h2 style=\"margin:0; font-size:20px;\">🚀 Processamento iniciado</h2>" +
+                        "</div>" +
+                        "<div style=\"padding:20px;\">" +
+                        "<p>Olá, <strong>" + recipientName.value() + "</strong>,</p>" +
+                        "<p>O processamento do vídeo <strong>" + videoName + "</strong> foi iniciado com sucesso.</p>" +
+                        "<p style=\"margin-top:16px;\">As imagens serão capturadas a cada <strong>" + frameCutMinutes + " minuto(s)</strong>.</p>" +
+                        "<p style=\"margin-top:16px;\"><strong>Informações do processo:</strong></p>" +
+                        "<ul style=\"padding-left:20px;\">" +
+                        "<li><strong>🕒 Início: </strong>" + formattedReportTime + "</li>" +
+                        "<li><strong>🧩 Trace ID: </strong>" + traceId + "</li>" +
+                        "<li><strong>📄 Request ID: </strong>" + requestId + "</li>" +
+                        "</ul>" +
+                        "<p style=\"margin-top:16px;\">Você será notificado assim que o processamento for concluído.</p>" +
+                        "</div>" +
+                        "<div style=\"background-color:#f3f4f6; padding:12px; text-align:center; font-size:12px; color:#6b7280;\">" +
+                        "VideoCore - Plataforma de processamento de vídeos 🩵💙" +
+                        "</div>" +
+                        "</div>" +
                         "</div>";
 
         var message = new Message(messageText);
