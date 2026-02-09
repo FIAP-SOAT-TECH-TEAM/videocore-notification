@@ -23,36 +23,36 @@ class CreateEmailNotificationFinishedProcessUseCaseTest {
 
     @Test
     void shouldCreateNotificationWhenInputIsValid() {
-        // arrange
+        // Arrange
         var user = new UserDTO("1", "Maria", "maria@email.com");
         var input = new ProcessVideoStatusUpdateInput(
-                "video.mp4", UUID.randomUUID().toString(), UUID.randomUUID().toString(), 1, 1, 10.0, Instant.now(), false
+                "video.mp4", UUID.randomUUID().toString(), UUID.randomUUID().toString(), UUID.randomUUID().toString(), 1, 1, 10.0, Instant.now(), false
         );
 
-        // act
+        // Act
         Notification notification =
                 useCase.createEmailNotificationFinishedProcess(user, input, "http://download");
 
-        // assert
+        // Assert
         assertNotNull(notification);
         assertEquals("Maria", notification.getRecipientName());
         assertEquals("maria@email.com", notification.getRecipient());
-        assertTrue(notification.getMessage().contains("Download"));
+        assertTrue(notification.getMessage().contains("download"));
     }
 
     @Test
     void shouldThrowExceptionWhenDownloadUrlIsIrrelevantButUserIsInvalid() {
-        // arrange
+        // Arrange
         var user = new UserDTO("1", "Maria", "email-invalido");
         var input = new ProcessVideoStatusUpdateInput(
-                "video.mp4", UUID.randomUUID().toString(), UUID.randomUUID().toString(), 1, 1, 10.0, Instant.now(), false
+                "video.mp4", UUID.randomUUID().toString(), UUID.randomUUID().toString(), UUID.randomUUID().toString(), 1, 1, 10.0, Instant.now(), false
         );
 
-        // act
+        // Act
         var ex = assertThrows(UserException.class,
                 () -> useCase.createEmailNotificationFinishedProcess(user, input, "url"));
 
-        // assert
+        // Assert
         assertEquals("Endereço de email do usuário é inválido", ex.getMessage());
     }
 }

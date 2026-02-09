@@ -19,26 +19,26 @@ class SendEmailUseCaseTest {
 
     @Test
     void shouldSendEmailWhenNotificationIsValid() {
-        // arrange
+        // Arrange
         var notification = mock(Notification.class);
         when(notification.getSubject()).thenReturn("subject");
         when(notification.getRecipient()).thenReturn("to@email.com");
         when(notification.getMessage()).thenReturn("message");
 
-        // act
+        // Act
         useCase.sendEmail(notification);
 
-        // assert
+        // Assert
         verify(emailGateway).sendEmail("subject", "to@email.com", "message");
     }
 
     @Test
     void shouldThrowExceptionWhenNotificationIsNull() {
-        // arrange / act
+        // Arrange & Act
         var ex = assertThrows(NotificationException.class,
                 () -> useCase.sendEmail(null));
 
-        // assert
+        // Assert
         assertEquals(
                 "A notificação não pode ser nula para o disparo de emails",
                 ex.getMessage()

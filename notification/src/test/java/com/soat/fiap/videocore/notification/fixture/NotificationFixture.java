@@ -103,6 +103,7 @@ public final class NotificationFixture {
                 "video.mp4",
                 UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
+                UUID.randomUUID().toString(),
                 0L,
                 1L,
                 0D,
@@ -120,6 +121,7 @@ public final class NotificationFixture {
     public static ProcessVideoStatusUpdateInput notificationInputFinished() {
         return new ProcessVideoStatusUpdateInput(
                 "video.mp4",
+                UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 10L,
@@ -141,6 +143,7 @@ public final class NotificationFixture {
                 "video.mp4",
                 UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
+                UUID.randomUUID().toString(),
                 5L,
                 50D,
                 Instant.now()
@@ -156,6 +159,7 @@ public final class NotificationFixture {
     public static ProcessVideoStatusUpdateInput notificationInputWithError() {
         return new ProcessVideoStatusUpdateInput(
                 "video.mp4",
+                UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 UUID.randomUUID().toString(),
                 5,

@@ -14,31 +14,31 @@ class MessageTest {
 
     @Test
     void shouldCreateValidMessage() {
-        // arrange
+        // Arrange
         var message = NotificationFixture.validMessage();
 
-        // act
+        // Act
         var value = message.value();
 
-        // assert
+        // Assert
         assertEquals("Mensagem válida", value);
     }
 
     @Test
     void shouldThrowExceptionWhenMessageIsNull() {
-        // arrange / act
+        // Arrange & Act
         var ex = assertThrows(NotificationException.class, () -> new Message(null));
 
-        // assert
+        // Assert
         assertEquals("A mensagem da notificação não pode ser nula ou vazia", ex.getMessage());
     }
 
     @Test
     void shouldThrowExceptionWhenMessageIsBlank() {
-        // arrange / act
+        // Arrange & Act
         var ex = assertThrows(NotificationException.class, () -> new Message(" "));
 
-        // assert
+        // Assert
         assertEquals("A mensagem da notificação não pode ser nula ou vazia", ex.getMessage());
     }
 }

@@ -23,16 +23,16 @@ class CreateEmailNotificationErrorProcessUseCaseTest {
 
     @Test
     void shouldCreateNotificationWhenInputIsValid() {
-        // arrange
+        // Arrange
         var user = new UserDTO("1", "João", "joao@email.com");
         var input = new ProcessVideoErrorInput(
-                "video.mp4", UUID.randomUUID().toString(), UUID.randomUUID().toString(), 0, 0.0, Instant.now()
+                "video.mp4", UUID.randomUUID().toString(), UUID.randomUUID().toString(), UUID.randomUUID().toString(), 0, 0.0, Instant.now()
         );
 
-        // act
+        // Act
         Notification notification = useCase.createEmailNotificationErrorProcess(user, input);
 
-        // assert
+        // Assert
         assertNotNull(notification);
         assertEquals("João", notification.getRecipientName());
         assertEquals("joao@email.com", notification.getRecipient());
@@ -41,16 +41,16 @@ class CreateEmailNotificationErrorProcessUseCaseTest {
 
     @Test
     void shouldThrowExceptionWhenUserIsNull() {
-        // arrange
+        // Arrange
         var input = new ProcessVideoErrorInput(
-                "video.mp4", null, UUID.randomUUID().toString(), 1, 20.0, Instant.now()
+                "video.mp4", null, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 1, 20.0, Instant.now()
         );
 
-        // act
+        // Act
         var ex = assertThrows(NotificationException.class,
                 () -> useCase.createEmailNotificationErrorProcess(null, input));
 
-        // assert
+        // Assert
         assertEquals(
                 "As informações do usuário ou do processamento do vídeo não podem ser nulas para criação da notificação",
                 ex.getMessage()
@@ -59,17 +59,17 @@ class CreateEmailNotificationErrorProcessUseCaseTest {
 
     @Test
     void shouldThrowExceptionWhenEmailIsInvalid() {
-        // arrange
+        // Arrange
         var user = new UserDTO("1", "João", "email-invalido");
         var input = new ProcessVideoErrorInput(
-                "video.mp4", UUID.randomUUID().toString(), UUID.randomUUID().toString(), 5, 50.00, Instant.now()
+                "video.mp4", UUID.randomUUID().toString(), UUID.randomUUID().toString(), UUID.randomUUID().toString(), 5, 50.00, Instant.now()
         );
 
-        // act
+        // Act
         var ex = assertThrows(UserException.class,
                 () -> useCase.createEmailNotificationErrorProcess(user, input));
 
-        // assert
+        // Assert
         assertEquals("Endereço de email do usuário é inválido", ex.getMessage());
     }
 }

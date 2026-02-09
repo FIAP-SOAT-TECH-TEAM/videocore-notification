@@ -36,7 +36,7 @@ class ProcessVideoErrorControllerTest {
 
     @Test
     void shouldProcessVideoErrorAndSendEmail() {
-        // arrange
+        // Arrange
         var payload = mock(ProcessVideoErrorPayload.class);
         var user = NotificationFixture.user();
         var input = NotificationFixture.notificationErrorInput();
@@ -48,10 +48,10 @@ class ProcessVideoErrorControllerTest {
         when(createEmailNotificationErrorProcessUseCase.createEmailNotificationErrorProcess(user, input))
                 .thenReturn(notification);
 
-        // act
+        // Act
         controller.processVideoError(payload);
 
-        // assert
+        // Assert
         verify(sendEmailUseCase).sendEmail(notification);
     }
 }

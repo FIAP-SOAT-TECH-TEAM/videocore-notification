@@ -22,17 +22,17 @@ class CreateEmailNotificationStartedProcessUseCaseTest {
 
     @Test
     void shouldCreateNotificationWhenInputIsValid() {
-        // arrange
+        // Arrange
         var user = new UserDTO("1", "Ana", "ana@email.com");
         var input = new ProcessVideoStatusUpdateInput(
-                "video.mp4", UUID.randomUUID().toString(), UUID.randomUUID().toString(), 1, 1, 10.0, Instant.now(), false
+                "video.mp4", UUID.randomUUID().toString(), UUID.randomUUID().toString(), UUID.randomUUID().toString(), 1, 1, 10.0, Instant.now(), false
         );
 
-        // act
+        // Act
         Notification notification =
                 useCase.createEmailNotificationStartedProcess(user, input);
 
-        // assert
+        // Assert
         assertNotNull(notification);
         assertEquals("Ana", notification.getRecipientName());
         assertTrue(notification.getSubject().contains("começou"));
@@ -40,16 +40,16 @@ class CreateEmailNotificationStartedProcessUseCaseTest {
 
     @Test
     void shouldThrowExceptionWhenUserIsNull() {
-        // arrange
+        // Arrange
         var input = new ProcessVideoStatusUpdateInput(
-                "video.mp4", null, UUID.randomUUID().toString(), 1, 1, 10.0, Instant.now(), false
+                "video.mp4", null, UUID.randomUUID().toString(), UUID.randomUUID().toString(), 1, 1, 10.0, Instant.now(), false
         );
 
-        // act
+        // Act
         var ex = assertThrows(NotificationException.class,
                 () -> useCase.createEmailNotificationStartedProcess(null, input));
 
-        // assert
+        // Assert
         assertEquals(
                 "As informações do usuário ou do processamento do vídeo não podem ser nulas para criação da notificação",
                 ex.getMessage()

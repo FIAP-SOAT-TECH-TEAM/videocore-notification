@@ -39,7 +39,7 @@ class ProcessVideoStatusUpdateControllerTest {
 
     @Test
     void shouldSendStartedProcessNotificationWhenPercentIsZero() {
-        // arrange
+        // Arrange
         var payload = mock(ProcessVideoStatusUpdatePayload.class);
         var user = NotificationFixture.user();
         var input = NotificationFixture.notificationInputStarted();
@@ -51,16 +51,16 @@ class ProcessVideoStatusUpdateControllerTest {
         when(createEmailNotificationStartedProcessUseCase.createEmailNotificationStartedProcess(user, input))
                 .thenReturn(notification);
 
-        // act
+        // Act
         controller.processVideoStatusUpdate(payload);
 
-        // assert
+        // Assert
         verify(sendEmailUseCase).sendEmail(notification);
     }
 
     @Test
     void shouldSendFinishedProcessNotificationWhenPercentIsHundred() {
-        // arrange
+        // Arrange
         var payload = mock(ProcessVideoStatusUpdatePayload.class);
         var user = NotificationFixture.user();
         var input = NotificationFixture.notificationInputFinished();
@@ -77,16 +77,16 @@ class ProcessVideoStatusUpdateControllerTest {
                 .createEmailNotificationFinishedProcess(user, input, "http://download"))
                 .thenReturn(notification);
 
-        // act
+        // Act
         controller.processVideoStatusUpdate(payload);
 
-        // assert
+        // Assert
         verify(sendEmailUseCase).sendEmail(notification);
     }
 
     @Test
     void shouldNotSendEmailWhenNoNotificationIsCreated() {
-        // arrange
+        // Arrange
         var payload = mock(ProcessVideoStatusUpdatePayload.class);
         var user = NotificationFixture.user();
         var input = NotificationFixture.notificationInputWithError();
@@ -95,10 +95,10 @@ class ProcessVideoStatusUpdateControllerTest {
         when(getUserByIdUseCase.getUserById("user-id")).thenReturn(user);
         when(eventMapper.toInput(payload)).thenReturn(input);
 
-        // act
+        // Act
         controller.processVideoStatusUpdate(payload);
 
-        // assert
+        // Assert
         verify(sendEmailUseCase, never()).sendEmail(any(Notification.class));
     }
 }

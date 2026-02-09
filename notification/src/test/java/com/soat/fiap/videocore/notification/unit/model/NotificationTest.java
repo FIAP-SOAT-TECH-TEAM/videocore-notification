@@ -13,10 +13,10 @@ class NotificationTest {
 
     @Test
     void shouldCreateValidNotification() {
-        // arrange
+        // Arrange
         var notification = NotificationFixture.validNotification();
 
-        // act / assert
+        // Act & Assert
         assertEquals("João Silva", notification.getRecipientName());
         assertEquals("Assunto válido", notification.getSubject());
         assertEquals("joao@email.com", notification.getRecipient());
@@ -25,61 +25,61 @@ class NotificationTest {
 
     @Test
     void shouldThrowExceptionWhenRecipientNameIsNull() {
-        // arrange
+        // Arrange
         var subject = NotificationFixture.validSubject();
         var recipient = NotificationFixture.validRecipient();
         var message = NotificationFixture.validMessage();
 
-        // act
+        // Act
         var ex = assertThrows(NullPointerException.class,
                 () -> new Notification(null, subject, recipient, message));
 
-        // assert
+        // Assert
         assertEquals("recipientName não pode ser nulo", ex.getMessage());
     }
 
     @Test
     void shouldThrowExceptionWhenSubjectIsNull() {
-        // arrange
+        // Arrange
         var recipientName = NotificationFixture.validRecipientName();
         var recipient = NotificationFixture.validRecipient();
         var message = NotificationFixture.validMessage();
 
-        // act
+        // Act
         var ex = assertThrows(NullPointerException.class,
                 () -> new Notification(recipientName, null, recipient, message));
 
-        // assert
+        // Assert
         assertEquals("subject não pode ser nulo", ex.getMessage());
     }
 
     @Test
     void shouldThrowExceptionWhenRecipientIsNull() {
-        // arrange
+        // Arrange
         var recipientName = NotificationFixture.validRecipientName();
         var subject = NotificationFixture.validSubject();
         var message = NotificationFixture.validMessage();
 
-        // act
+        // Act
         var ex = assertThrows(NullPointerException.class,
                 () -> new Notification(recipientName, subject, null, message));
 
-        // assert
+        // Assert
         assertEquals("recipient não pode ser nulo", ex.getMessage());
     }
 
     @Test
     void shouldThrowExceptionWhenMessageIsNull() {
-        // arrange
+        // Arrange
         var recipientName = NotificationFixture.validRecipientName();
         var subject = NotificationFixture.validSubject();
         var recipient = NotificationFixture.validRecipient();
 
-        // act
+        // Act
         var ex = assertThrows(NullPointerException.class,
                 () -> new Notification(recipientName, subject, recipient, null));
 
-        // assert
+        // Assert
         assertEquals("message não pode ser nulo", ex.getMessage());
     }
 }

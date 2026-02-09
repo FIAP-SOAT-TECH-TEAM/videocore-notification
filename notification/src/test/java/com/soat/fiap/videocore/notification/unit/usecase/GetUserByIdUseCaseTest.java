@@ -20,50 +20,50 @@ class GetUserByIdUseCaseTest {
 
     @Test
     void shouldReturnUserWhenIdIsValidAndUserExists() {
-        // arrange
+        // Arrange
         var userId = "user-1";
         var expectedUser = new UserDTO(userId, "João", "joao@email.com");
         when(userGateway.getUserById(userId)).thenReturn(expectedUser);
 
-        // act
+        // Act
         var result = useCase.getUserById(userId);
 
-        // assert
+        // Assert
         assertNotNull(result);
         assertEquals(expectedUser, result);
     }
 
     @Test
     void shouldThrowExceptionWhenIdIsNull() {
-        // arrange / act
+        // Arrange & Act
         var ex = assertThrows(UserException.class,
                 () -> useCase.getUserById(null));
 
-        // assert
+        // Assert
         assertEquals("O ID do usuário não pode ser nulo ou vazio para consulta", ex.getMessage());
     }
 
     @Test
     void shouldThrowExceptionWhenIdIsBlank() {
-        // arrange / act
+        // Arrange & Act
         var ex = assertThrows(UserException.class,
                 () -> useCase.getUserById(" "));
 
-        // assert
+        // Assert
         assertEquals("O ID do usuário não pode ser nulo ou vazio para consulta", ex.getMessage());
     }
 
     @Test
     void shouldThrowExceptionWhenUserIsNotFound() {
-        // arrange
+        // Arrange
         var userId = "user-404";
         when(userGateway.getUserById(userId)).thenReturn(null);
 
-        // act
+        // Act
         var ex = assertThrows(UserNotFoundException.class,
                 () -> useCase.getUserById(userId));
 
-        // assert
+        // Assert
         assertTrue(ex.getMessage().contains(userId));
     }
 }

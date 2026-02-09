@@ -14,31 +14,31 @@ class RecipientNameTest {
 
     @Test
     void shouldCreateValidRecipientName() {
-        // arrange
+        // Arrange
         var recipientName = NotificationFixture.validRecipientName();
 
-        // act
+        // Act
         var value = recipientName.value();
 
-        // assert
+        // Assert
         assertEquals("João Silva", value);
     }
 
     @Test
     void shouldThrowExceptionWhenRecipientNameIsNull() {
-        // arrange / act
+        // Arrange & Act
         var ex = assertThrows(NotificationException.class, () -> new RecipientName(null));
 
-        // assert
+        // Assert
         assertEquals("O nome do destinatário da notificação não pode ser nulo ou vazio", ex.getMessage());
     }
 
     @Test
     void shouldThrowExceptionWhenRecipientNameIsBlank() {
-        // arrange / act
+        // Arrange & Act
         var ex = assertThrows(NotificationException.class, () -> new RecipientName(" "));
 
-        // assert
+        // Assert
         assertEquals("O nome do destinatário da notificação não pode ser nulo ou vazio", ex.getMessage());
     }
 }

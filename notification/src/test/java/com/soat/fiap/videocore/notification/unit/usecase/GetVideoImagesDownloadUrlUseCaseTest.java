@@ -20,7 +20,7 @@ class GetVideoImagesDownloadUrlUseCaseTest {
 
     @Test
     void shouldReturnDownloadUrlWhenInputsAreValid() {
-        // arrange
+        // Arrange
         var userId = "user-1";
         var requestId = "req-1";
         var videoName = "video.mp4";
@@ -30,20 +30,20 @@ class GetVideoImagesDownloadUrlUseCaseTest {
                 userId, requestId, videoName, 30L)
         ).thenReturn(expectedUrl);
 
-        // act
+        // Act
         var result = useCase.getVideoImagesDownloadUrl(userId, requestId, videoName);
 
-        // assert
+        // Assert
         assertEquals(expectedUrl, result);
     }
 
     @Test
     void shouldThrowExceptionWhenUserIdIsNull() {
-        // arrange / act
+        // Arrange & Act
         var ex = assertThrows(VideoException.class,
                 () -> useCase.getVideoImagesDownloadUrl(null, "req", "video"));
 
-        // assert
+        // Assert
         assertEquals(
                 "userId não pode ser nulo ou vazio para pesquisa de URL de download das imagens",
                 ex.getMessage()
@@ -52,11 +52,11 @@ class GetVideoImagesDownloadUrlUseCaseTest {
 
     @Test
     void shouldThrowExceptionWhenRequestIdIsBlank() {
-        // arrange / act
+        // Arrange & Act
         var ex = assertThrows(VideoException.class,
                 () -> useCase.getVideoImagesDownloadUrl("user", " ", "video"));
 
-        // assert
+        // Assert
         assertEquals(
                 "requestId não pode ser nulo ou vazio para pesquisa de URL de download das imagens",
                 ex.getMessage()
@@ -65,11 +65,11 @@ class GetVideoImagesDownloadUrlUseCaseTest {
 
     @Test
     void shouldThrowExceptionWhenVideoNameIsNull() {
-        // arrange / act
+        // Arrange & Act
         var ex = assertThrows(VideoException.class,
                 () -> useCase.getVideoImagesDownloadUrl("user", "req", null));
 
-        // assert
+        // Assert
         assertEquals(
                 "videoName não pode ser nulo ou vazio para pesquisa de URL de download das imagens",
                 ex.getMessage()
@@ -78,7 +78,7 @@ class GetVideoImagesDownloadUrlUseCaseTest {
 
     @Test
     void shouldThrowExceptionWhenDownloadUrlIsNotFound() {
-        // arrange
+        // Arrange
         var userId = "user-1";
         var requestId = "req-1";
         var videoName = "video.mp4";
@@ -87,11 +87,11 @@ class GetVideoImagesDownloadUrlUseCaseTest {
                 userId, requestId, videoName, 30L)
         ).thenReturn(" ");
 
-        // act
+        // Act
         var ex = assertThrows(VideoImageDownloadUrlNotFoundException.class,
                 () -> useCase.getVideoImagesDownloadUrl(userId, requestId, videoName));
 
-        // assert
+        // Assert
         assertTrue(ex.getMessage().contains(userId));
         assertTrue(ex.getMessage().contains(requestId));
         assertTrue(ex.getMessage().contains(videoName));

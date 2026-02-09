@@ -14,31 +14,31 @@ class RecipientTest {
 
     @Test
     void shouldCreateValidRecipient() {
-        // arrange
+        // Arrange
         var recipient = NotificationFixture.validRecipient();
 
-        // act
+        // Act
         var value = recipient.value();
 
-        // assert
+        // Assert
         assertEquals("joao@email.com", value);
     }
 
     @Test
     void shouldThrowExceptionWhenRecipientIsNull() {
-        // arrange / act
+        // Arrange & Act
         var ex = assertThrows(NotificationException.class, () -> new Recipient(null));
 
-        // assert
+        // Assert
         assertEquals("O destinatário da notificação não pode ser nulo ou vazio", ex.getMessage());
     }
 
     @Test
     void shouldThrowExceptionWhenRecipientIsBlank() {
-        // arrange / act
+        // Arrange & Act
         var ex = assertThrows(NotificationException.class, () -> new Recipient(" "));
 
-        // assert
+        // Assert
         assertEquals("O destinatário da notificação não pode ser nulo ou vazio", ex.getMessage());
     }
 }

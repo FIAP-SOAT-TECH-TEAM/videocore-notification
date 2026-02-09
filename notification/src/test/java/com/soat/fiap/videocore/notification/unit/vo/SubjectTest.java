@@ -14,43 +14,43 @@ class SubjectTest {
 
     @Test
     void shouldCreateValidSubject() {
-        // arrange
+        // Arrange
         var subject = NotificationFixture.validSubject();
 
-        // act
+        // Act
         var value = subject.value();
 
-        // assert
+        // Assert
         assertEquals("Assunto válido", value);
     }
 
     @Test
     void shouldThrowExceptionWhenSubjectIsNull() {
-        // arrange / act
+        // Arrange & Act
         var ex = assertThrows(NotificationException.class, () -> new Subject(null));
 
-        // assert
+        // Assert
         assertEquals("O assunto da notificação não pode ser nulo ou vazio", ex.getMessage());
     }
 
     @Test
     void shouldThrowExceptionWhenSubjectIsBlank() {
-        // arrange / act
+        // Arrange & Act
         var ex = assertThrows(NotificationException.class, () -> new Subject(" "));
 
-        // assert
+        // Assert
         assertEquals("O assunto da notificação não pode ser nulo ou vazio", ex.getMessage());
     }
 
     @Test
     void shouldThrowExceptionWhenSubjectExceedsMaxLength() {
-        // arrange
+        // Arrange
         var value = "a".repeat(101);
 
-        // act
+        // Act
         var ex = assertThrows(NotificationException.class, () -> new Subject(value));
 
-        // assert
+        // Assert
         assertEquals("O assunto da notificação não pode exceder: 100 caracteres", ex.getMessage());
     }
 }
