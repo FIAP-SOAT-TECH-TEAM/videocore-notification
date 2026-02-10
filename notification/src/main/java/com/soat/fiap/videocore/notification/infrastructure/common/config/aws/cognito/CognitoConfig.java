@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.AwsSessionCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -35,12 +36,13 @@ public class CognitoConfig {
 		}
 
 		var parsed = parseCredentials(creds);
-		var sessionCreds = AwsSessionCredentials.create(parsed.get("AWS_ACCESS_KEY_ID"),
-				parsed.get("AWS_SECRET_ACCESS_KEY"), parsed.get("AWS_SESSION_TOKEN"));
+        var credentials = (parsed.get("AWS_SESSION_TOKEN") == null || parsed.get("AWS_SESSION_TOKEN").isEmpty())
+                ? AwsBasicCredentials.create(parsed.get("AWS_ACCESS_KEY_ID"), parsed.get("AWS_SECRET_ACCESS_KEY"))
+                : AwsSessionCredentials.create(parsed.get("AWS_ACCESS_KEY_ID"), parsed.get("AWS_SECRET_ACCESS_KEY"), parsed.get("AWS_SESSION_TOKEN"));
 
 		var builder = CognitoIdentityProviderClient.builder()
 				.region(Region.of(parsed.getOrDefault("AWS_REGION", "us-east-1")))
-				.credentialsProvider(StaticCredentialsProvider.create(sessionCreds));
+				.credentialsProvider(StaticCredentialsProvider.create(credentials));
 
 		if (endpoint != null && !endpoint.isBlank()) {
 			builder.endpointOverride(URI.create(endpoint));
