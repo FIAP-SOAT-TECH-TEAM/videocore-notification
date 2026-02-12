@@ -4,7 +4,6 @@ import com.azure.messaging.servicebus.ServiceBusClientBuilder;
 import com.azure.messaging.servicebus.ServiceBusProcessorClient;
 import com.soat.fiap.videocore.notification.infrastructure.common.config.azure.svcbus.ServiceBusConfig;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
  * Configura o processor client para consumir eventos de erro no processamento do vídeo do Service Bus.
  */
 @Configuration
-@Slf4j
 @RequiredArgsConstructor
 public class ProcessVideoErrorConfig {
 
