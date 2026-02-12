@@ -2,6 +2,7 @@ package com.soat.fiap.videocore.notification.infrastructure.in.event.azsvcbus.li
 
 import com.azure.messaging.servicebus.ServiceBusClientBuilder;
 import com.azure.messaging.servicebus.ServiceBusProcessorClient;
+import com.azure.messaging.servicebus.models.ServiceBusReceiveMode;
 import com.soat.fiap.videocore.notification.infrastructure.common.config.azure.svcbus.ServiceBusConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -26,6 +27,7 @@ public class ProcessVideoErrorConfig {
     public ServiceBusProcessorClient processVideoError(ServiceBusClientBuilder builder) {
         return builder.processor()
                 .queueName(ServiceBusConfig.PROCESS_ERROR_QUEUE)
+                .receiveMode(ServiceBusReceiveMode.PEEK_LOCK)
                 .processMessage(handler::handleMessage)
                 .processError(context -> {})
                 .buildProcessorClient();
