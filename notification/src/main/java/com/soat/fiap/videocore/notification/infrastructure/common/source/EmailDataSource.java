@@ -14,8 +14,6 @@ public interface EmailDataSource {
 	 *            destinatário do e-mail.
 	 * @param body
 	 *            o corpo do e-mail (pode ser HTML)
-	 * @throws RuntimeException
-	 *             se ocorrer erro ao enviar o e-mail
 	 */
 	void sendEmail(String subject, String recipient, String body);
 }

@@ -1,5 +1,6 @@
 package com.soat.fiap.videocore.notification.infrastructure.out.email;
 
+import com.soat.fiap.videocore.notification.infrastructure.out.email.exceptions.EmailException;
 import com.soat.fiap.videocore.notification.infrastructure.common.source.EmailDataSource;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,17 @@ public class DefaultEmailDataSource implements EmailDataSource {
 	@Value("${spring.mail.from}")
 	private String from;
 
+    /**
+     * Envia um e-mail utilizando {@link jakarta.mail.internet.MimeMessage} com suporte a HTML.
+     *
+     * <p>Define remetente (quando configurado), destinatário, assunto e corpo da mensagem.
+     * O envio é realizado por meio do {@code mailSender} configurado na aplicação.</p>
+     *
+     * @param subject   assunto do e-mail
+     * @param recipient destinatário da mensagem
+     * @param body      conteúdo do e-mail (HTML habilitado)
+     * @throws EmailException caso ocorra falha na criação ou envio da mensagem
+     */
 	@Override
 	public void sendEmail(String subject, String recipient, String body) {
 		try {
@@ -38,7 +50,7 @@ public class DefaultEmailDataSource implements EmailDataSource {
 
 			mailSender.send(message);
 		} catch (MessagingException e) {
-			throw new RuntimeException("Falha ao enviar e-mail", e);
+			throw new EmailException("Falha ao enviar e-mail", e);
 		}
 	}
 }

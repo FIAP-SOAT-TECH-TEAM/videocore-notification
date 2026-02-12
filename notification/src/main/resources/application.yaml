@@ -9,11 +9,6 @@ spring:
   profiles:
     active: local
 
-  cloud:
-    azure:
-      servicebus:
-        connection-string: ${AZ_SVC_BUS_CONNECTION_STRING:}
-
   mail:
     host: ${SPRING_MAIL_HOST:}
     port: ${SPRING_MAIL_PORT:}
@@ -80,6 +75,8 @@ otel:
         protocol: grpc
 
 azure:
+  service-bus:
+    connection-string: ${AZ_SVC_BUS_CONNECTION_STRING:}
   blob-storage:
     connection-string: ${AZURE_BLOB_STORAGE_CONNECTION_STRING:}
     video-container-name: ${AZURE_BLOB_STORAGE_VIDEO_CONTAINER_NAME:}
