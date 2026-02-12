@@ -29,7 +29,7 @@ RUN ./gradlew nativeCompile \
 FROM alpine:3.20 AS runtime
 WORKDIR /app
 
-# Atualizar ferramentas básicas para health checks
+# Adicionar ferramentas básicas para health checks
 RUN apk add --no-cache curl wget tzdata libc6-compat
 
 # Definir timezone para GMT-3 (America/Sao_Paulo)
