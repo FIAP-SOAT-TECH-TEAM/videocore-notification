@@ -5,7 +5,6 @@ import com.azure.messaging.servicebus.ServiceBusProcessorClient;
 import com.azure.messaging.servicebus.models.ServiceBusReceiveMode;
 import com.soat.fiap.videocore.notification.infrastructure.common.config.azure.svcbus.ServiceBusConfig;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @RequiredArgsConstructor
-@Slf4j
 public class ProcessVideoErrorConfig {
 
     private final ProcessVideoErrorHandler handler;
@@ -32,7 +30,7 @@ public class ProcessVideoErrorConfig {
                 .receiveMode(ServiceBusReceiveMode.PEEK_LOCK)
                 .processMessage(handler::handleMessage)
                 .processError(errorContext -> {
-                    log.error("request_error", errorContext.getException());
+
                 })
                 .buildProcessorClient();
     }
