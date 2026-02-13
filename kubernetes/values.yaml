@@ -1,0 +1,55 @@
+namespace:
+  api:
+    name: replaced
+    
+api:
+  name: notification
+
+  replicaCount: 2
+
+  image:
+    repository: "replaced"
+    tag: "replaced"
+
+  ports:
+    port: 9090
+    name: http
+
+  resources:
+    requests:
+      cpu: 500m
+      memory: 512Mi
+    limits:
+      cpu: 900m
+      memory: 1024Mi
+
+  probe:
+    path:
+      startup: /actuator/health
+      liveness: /actuator/health/liveness
+      readiness: /actuator/health/readiness
+  
+  spring:
+    mail:
+      auth:
+        enabled: true
+      tls:
+        enabled: true
+
+  server:
+    address: 0.0.0.0
+    port: 9090
+    profilesActive: "prod"
+
+  hpa:
+    minReplicas: 1
+    maxReplicas: 3
+
+  otel:
+    grpcEndpoint: "nr-k8s-otel-collector-gateway:4317"
+
+secrets:
+  azureKeyVault:
+    keyVaultName: "replaced"
+    tenantId: "replaced"
+    clientID: "replaced"
