@@ -1,6 +1,8 @@
 namespace:
   api:
     name: replaced
+  monitor:
+    name: replaced
     
 api:
   name: notification
@@ -44,9 +46,6 @@ api:
   hpa:
     minReplicas: 1
     maxReplicas: 3
-
-  otel:
-    grpcEndpoint: "nr-k8s-otel-collector-gateway:4317"
 
 secrets:
   azureKeyVault:

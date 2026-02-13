@@ -11,4 +11,4 @@ data:
   SPRING_PROFILES_ACTIVE: {{ .Values.api.server.profilesActive | quote }}
   SPRING_MAIL_AUTH_ENABLED: {{ .Values.api.spring.mail.auth.enabled | quote }}
   SPRING_MAIL_TLS_ENABLED: {{ .Values.api.spring.mail.tls.enabled | quote }}
-  OTEL_GRPC_ENDPOINT: {{ .Values.api.otel.grpcEndpoint | quote }}
+  OTEL_GRPC_ENDPOINT: "http://videocore-nr-otel-opentelemetry-collector.{{ .Values.namespace.monitor.name }}.svc.cluster.local:4317"
