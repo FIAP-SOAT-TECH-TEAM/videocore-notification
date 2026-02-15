@@ -1,6 +1,8 @@
 namespace:
   api:
     name: replaced
+  monitor:
+    name: replaced
     
 api:
   name: notification
@@ -17,10 +19,10 @@ api:
 
   resources:
     requests:
-      cpu: 500m
+      cpu: 300m
       memory: 512Mi
     limits:
-      cpu: 900m
+      cpu: 500m
       memory: 1024Mi
 
   probe:
@@ -43,10 +45,7 @@ api:
 
   hpa:
     minReplicas: 1
-    maxReplicas: 3
-
-  otel:
-    grpcEndpoint: "nr-k8s-otel-collector-gateway:4317"
+    maxReplicas: 2
 
 secrets:
   azureKeyVault:
