@@ -7,9 +7,9 @@ public interface EmailDataSource {
 
 	/**
 	 * Envia um e-mail simples (texto ou HTML) para um destinatário.
-     *
-     * @param subject
-     *            o assunto do e-mail
+	 *
+	 * @param subject
+	 *            o assunto do e-mail
 	 * @param recipient
 	 *            destinatário do e-mail.
 	 * @param body
