@@ -13,7 +13,7 @@ public class UserNotFoundException extends RuntimeException {
 		super(message, cause);
 	}
 
-    public UserNotFoundException(String message, Object... args) {
-        super(String.format(message, args));
-    }
+	public UserNotFoundException(String message, Object... args) {
+		super(String.format(message, args));
+	}
 }

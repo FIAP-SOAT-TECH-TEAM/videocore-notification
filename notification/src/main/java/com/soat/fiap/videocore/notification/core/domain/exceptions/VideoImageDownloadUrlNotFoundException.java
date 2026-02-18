@@ -1,7 +1,8 @@
 package com.soat.fiap.videocore.notification.core.domain.exceptions;
 
 /**
- * Exceção lançada quando a url de download do arquivo de imagens de um vídeo processado for nula ou vazia
+ * Exceção lançada quando a url de download do arquivo de imagens de um vídeo
+ * processado for nula ou vazia
  */
 public class VideoImageDownloadUrlNotFoundException extends RuntimeException {
 
@@ -13,7 +14,7 @@ public class VideoImageDownloadUrlNotFoundException extends RuntimeException {
 		super(message, cause);
 	}
 
-    public VideoImageDownloadUrlNotFoundException(String message, Object... args) {
-        super(String.format(message, args));
-    }
+	public VideoImageDownloadUrlNotFoundException(String message, Object... args) {
+		super(String.format(message, args));
+	}
 }

@@ -18,6 +18,6 @@ public interface UserSource {
 	 *            Identificador do usuário
 	 * @return Um {@link UserDTO} contendo informações do usuário.
 	 */
-    UserDTO getUserById(String id);
+	UserDTO getUserById(String id);
 
 }
