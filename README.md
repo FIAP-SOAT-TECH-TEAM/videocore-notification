@@ -246,6 +246,7 @@ O código `HCL` desenvolvido segue uma estrutura modular:
 - **Injeção de Dependência**: Classes recebem via construtor os objetos que necessitam utilizar
 - **SAGA Coreografada**: Comunicação assíncrona via eventos
 - **Comunicação Síncrona Resiliente**: Embora ainda não possua comunicações síncronas, apenas assíncronas, caso o projeto evolua, serão implementadas usando padrões de resiliência como Circuit Beaker e Service Discovery
+- **Observabilidade**: O microsserviço está inteiramente instrumentado, com logs, tracing e métricas, via API do `Open Telemetry` (baixo acoplamento). Para logs, adota-se o conceito de **Log Canônico**.
 
 ### 🎯 Clean Architecture
 
@@ -324,7 +325,7 @@ infrastructure/
 |--------|-----------|---------|
 | **Workload Identity** | Usar Workload Identity para Pods acessarem recursos Azure (atual: Azure Key Vault Provider) | Melhora de segurança e gestão de credenciais |
 | **SMS** | Implementar disparo de notificações via SMS | Melhoria na comunicação com o usuário final |
-| **Migrar Linguagem Compilada** | Para máximizar a performance deste microsserviço, utilizou-se a GraalVM para criação de uma imagem nativa. Embora os ganhos sejam notórios, observou-se o uso intensivo de `JNI`, `Reflections`, entre outras coisas, e o compilador precisa conhecer tudo que for dinãmico em tempo de build `(reachability metadata)`. Neste sentido, utilizar uma linguagem nativamente compilada (Go, Rust...) pode trazer ganhos de manutenção no futuro | Melhora da manutenabilidade |
+| **Migrar Linguagem Compilada** | Para máximizar a performance deste microsserviço, utilizou-se a GraalVM para criação de uma imagem nativa. Embora os ganhos sejam notórios, observou-se o uso intensivo de `JNI`, `Reflections`, entre outras coisas, e o compilador precisa conhecer tudo que for dinãmico em tempo de build [(Reachability Metadata)](notification/src/main/resources/META-INF/README.md). Neste sentido, utilizar uma linguagem nativamente compilada (Go, Rust...) pode trazer ganhos de manutenção no futuro | Melhora da manutenabilidade |
 | **Implementar DLQ** | Implementar lógica de reprocessamento do evento de disparo de notificações, em caso de falha | Resiliência |
 | **Implementar BDD** | Utilizar abordagem BDD para desenvolvimento de testes de integração em fluxos críticos | Testabilidade |
 
