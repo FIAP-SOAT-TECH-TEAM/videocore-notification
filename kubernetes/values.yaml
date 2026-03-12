@@ -46,6 +46,9 @@ api:
   hpa:
     minReplicas: 1
     maxReplicas: 2
+    cpu:
+      utilization:
+        averageUtilization: 70
 
 secrets:
   azureKeyVault:
