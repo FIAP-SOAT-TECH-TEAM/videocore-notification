@@ -128,7 +128,7 @@ O **VideoCore Notification** é o microsserviço responsável por enviar notific
 |--------|-----------|
 | **Deployment** | Pods com health probes, limites de recursos e variáveis de ambiente |
 | **ConfigMap** | Configurações não sensíveis |
-| **HPA** | Escalabilidade automática baseada em CPU/memória |
+| **HPA** | Escalabilidade automática baseada em CPU |
 | **SecretProviderClass** | Integração com Azure Key Vault para gerenciamento de segredos |
 
 ### 🔌 Integrações
