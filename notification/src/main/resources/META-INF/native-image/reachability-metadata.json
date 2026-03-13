@@ -229,6 +229,24 @@
       "type": "com.azure.messaging.servicebus.ServiceBusErrorContext"
     },
     {
+      "type": "com.azure.messaging.servicebus.ServiceBusErrorSource",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "com.azure.messaging.servicebus.ServiceBusFailureReason",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "com.azure.messaging.servicebus.ServiceBusMessageContext"
     },
     {
@@ -257,6 +275,12 @@
     },
     {
       "type": "com.azure.messaging.servicebus.models.SubQueue"
+    },
+    {
+      "type": "com.ctc.wstx.stax.WstxInputFactory"
+    },
+    {
+      "type": "com.ctc.wstx.stax.WstxOutputFactory"
     },
     {
       "type": "com.fasterxml.jackson.annotation.JsonAutoDetect$Value"
@@ -12268,6 +12292,12 @@
     },
     {
       "glob": "META-INF/services/javax.xml.parsers.SAXParserFactory"
+    },
+    {
+      "glob": "META-INF/services/javax.xml.stream.XMLInputFactory"
+    },
+    {
+      "glob": "META-INF/services/javax.xml.stream.XMLOutputFactory"
     },
     {
       "glob": "META-INF/services/org.apache.commons.logging.LogFactory"
